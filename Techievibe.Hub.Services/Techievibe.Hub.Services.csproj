@@ -10,10 +10,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="12.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Techievibe.Hub.DataAccess.Core\Techievibe.Hub.DataAccess.Core.csproj" />
     <ProjectReference Include="..\Techievibe.Hub.DataAccess.Dapper\Techievibe.Hub.DataAccess.Dapper.csproj" />
   </ItemGroup>

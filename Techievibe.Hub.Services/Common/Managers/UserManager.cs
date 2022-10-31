@@ -2,7 +2,7 @@
 using Techievibe.Hub.DataAccess.Core.Providers;
 using Techievibe.Hub.DataAccess.Dapper.Interfaces;
 using Techievibe.Hub.Services.Common.Interfaces;
-using AutoMapper;
+//using AutoMapper;
 using Techievibe.Hub.Common.ApiModels;
 using Techievibe.Hub.Common.Exceptions;
 using Microsoft.AspNetCore.Http;
@@ -13,13 +13,13 @@ namespace Techievibe.Hub.Services.Common.Managers
     public class UserManager : IUserManager
     {
         private readonly IUserRepository _userRepository;
-        private readonly IMapper _mapper;
+        //private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ISumoLogger _logger;
-        public UserManager(IUserRepository userRepository, IMapper mapper, IHttpContextAccessor httpContextAccessor, ISumoLogger logger)
+        public UserManager(IUserRepository userRepository, /*IMapper mapper ,*/ IHttpContextAccessor httpContextAccessor, ISumoLogger logger)
         {
             _userRepository = userRepository;
-            _mapper = mapper;
+            //_mapper = mapper;
             _httpContextAccessor = httpContextAccessor;
             _logger = logger;
         }
@@ -46,7 +46,7 @@ namespace Techievibe.Hub.Services.Common.Managers
 
             foreach (var dbUser in dataUsers)
             {
-                apiUsers.Add(_mapper.Map<Api.User>(dbUser));
+                //apiUsers.Add(_mapper.Map<Api.User>(dbUser));
             }
 
             return apiUsers;
@@ -58,7 +58,7 @@ namespace Techievibe.Hub.Services.Common.Managers
 
             Api.User apiUser = new Api.User();
 
-            apiUser = _mapper.Map<Api.User>(dataUser);
+            //apiUser = _mapper.Map<Api.User>(dataUser);
 
             return apiUser;
         }
