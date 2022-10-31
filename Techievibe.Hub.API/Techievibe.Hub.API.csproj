@@ -13,7 +13,6 @@
     <DocumentationFile>bin/Release/net6.0/Techievibe.Hub.API.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.9" />
     <PackageReference Include="SumoLogic.Logging.AspNetCore" Version="1.0.1.4" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
