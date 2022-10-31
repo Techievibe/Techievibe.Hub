@@ -1,0 +1,16 @@
+.vs/
+Techievibe.Hub.API/bin/
+Techievibe.Hub.API/obj/
+Techievibe.Hub.Common/bin/
+Techievibe.Hub.Common/obj/
+Techievibe.Hub.Data/obj/
+Techievibe.Hub.DataAccess.Core/bin/
+Techievibe.Hub.DataAccess.Core/obj/
+Techievibe.Hub.DataAccess.Dapper/bin/
+Techievibe.Hub.DataAccess.Dapper/obj/
+Techievibe.Hub.Integrations.StockMarket.Alpaca/bin/
+Techievibe.Hub.Integrations.StockMarket.Alpaca/obj/
+Techievibe.Hub.Logging/bin/
+Techievibe.Hub.Logging/obj/
+Techievibe.Hub.Services/bin/
+Techievibe.Hub.Services/obj/
