@@ -1,8 +1,10 @@
 version: 2.1
+orbs:
+  node: circleci/windows@5 #orb version
 jobs:
  build:
-   docker:
-     - image: mcr.microsoft.com/dotnet/core/sdk:2.2
+   executor:
+      name: win/default
    steps:
      - checkout
      - run:
