@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  node: circleci/windows@5 #orb version
+  win: circleci/windows@5.0 #orb version
 jobs:
  build:
    executor:
