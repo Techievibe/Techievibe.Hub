@@ -1,8 +1,13 @@
 version: 2.1
 orbs:
   win: circleci/windows@5.0 #orb version
+  node: circleci/node@5.0.2
+
+defaults: &defaults
+  working_directory: "/project"
 jobs:
- build:
+ build_and_publish:
+   <<: *defaults
    executor:
       name: win/default
    steps:
@@ -15,7 +20,42 @@ jobs:
          name: Build App
          command:
            dotnet build
+     - run:
+         name: Publish App
+         command:
+           dotnet publish --output Publish
+     - run:
+         name: Create Directory
+         command:
+           mkdir -p workspace
+     - run:
+         name: Sample Echo
+         command:
+           echo "Hello World" > workspace/echo-output
+     - persist_to_workspace:
+          # Must be an absolute path, or relative path from working_directory. This is a directory on the container which is
+          # taken to be the root directory of the workspace.
+          root: workspace
+          # Must be relative path from root
+          paths:
+            - echo-output
+ check_persistence:
+    executor: node/default
+    steps:
+      - attach_workspace:
+          # Must be absolute path or relative path from working_directory
+          at: /project/workspace
+
+      - run: |
+          if [[ `cat /project/workspace/echo-output` == "Hello World" ]]; then
+            echo "It worked!";
+          else
+            echo "Nope!"; exit 1
+          fi
 workflows:
   build-api:
     jobs:
-      - build
+      - build_and_publish
+      - check_persistence:
+          requires:
+            - build_and_publish
