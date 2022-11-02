@@ -4,7 +4,7 @@ orbs:
   node: circleci/node@5.0.2
 
 defaults: &defaults
-  working_directory: "/project"
+  working_directory: "/MyTechievibeProject"
 jobs:
  build_and_publish:
    <<: *defaults
@@ -40,14 +40,15 @@ jobs:
           paths:
             - echo-output
  check_persistence:
+    <<: *defaults
     executor: node/default
     steps:
       - attach_workspace:
           # Must be absolute path or relative path from working_directory
-          at: /project/workspace
+          at: /MyTechievibeProject/workspace
 
       - run: |
-          if [[ `cat /project/workspace/echo-output` == "Hello World" ]]; then
+          if [[ `cat /MyTechievibeProject/workspace/echo-output` == "Hello World" ]]; then
             echo "It worked!";
           else
             echo "Nope!"; exit 1
