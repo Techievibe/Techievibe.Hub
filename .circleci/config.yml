@@ -39,7 +39,7 @@ jobs:
           # Must be relative path from root
           paths:
             - echo-output
- downstream:
+ check_persistence:
     executor: node/default
     steps:
       - attach_workspace:
