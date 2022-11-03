@@ -45,10 +45,10 @@ jobs:
     steps:
       - attach_workspace:
           # Must be absolute path or relative path from working_directory
-          at: /MyTechievibeProject/workspace
+          at: C:/MyTechievibeProject/workspace
 
       - run: |
-          if [[ `cat /MyTechievibeProject/workspace/echo-output` == "Hello World" ]]; then
+          if [[ `cat C:/MyTechievibeProject/workspace/echo-output` == "Hello World" ]]; then
             echo "It worked!";
           else
             echo "Nope!"; exit 1
