@@ -45,7 +45,7 @@ jobs:
     steps:
       - attach_workspace:
           # Must be absolute path or relative path from working_directory
-          at: C:/MyTechievibeProject/workspace
+          at: workspace
 
       - run: |
           if [[ `cat C:/MyTechievibeProject/workspace/echo-output` == "Hello World" ]]; then
