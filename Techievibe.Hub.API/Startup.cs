@@ -85,9 +85,10 @@ namespace Techievibe.Hub.API
             LoggerRegistration.AddSumoLogicLoggerForWeb(services, this.Configuration);
             DataAccessRegistration.AddSqlServerDependenciesForWeb(services, this.Configuration);
             services.AddSingleton<IUserManager, UserManager>();
-            //services.AddAutoMapper(cfg => {
-            //    cfg.AddProfile(typeof(UserMapper));
-            //});
+            services.AddAutoMapper(cfg =>
+            {
+                cfg.AddProfile(typeof(UserMapper));
+            });
 
 
         }

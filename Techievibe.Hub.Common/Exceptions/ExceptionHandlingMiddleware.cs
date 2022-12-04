@@ -69,7 +69,7 @@ namespace Techievibe.Hub.Common.Exceptions
             else
             {
                 response = new ApiResponse<string>(null, 500, Errors);
-                _logger.LogError(exception.Message, exception, false);
+                _logger.LogError(exception.Message, exception);
             }
             if (response == null)
                 response = new ApiResponse<string>(null, 500, Errors);
