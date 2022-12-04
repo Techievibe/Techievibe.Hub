@@ -15,8 +15,19 @@ namespace Techievibe.Hub.Logging.Core
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public void LogError(string message, Exception exception, bool isFormatted, params object[] args)
+        /// <summary>
+        /// Logs an error message to SumoLogic
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="location">this.GetType().Name + MethodBase.GetCurrentMethod().Name</param>
+        /// <param name="exception"></param>
+        /// <param name="args"></param>
+        public void LogError(string message,Exception exception, [System.Runtime.CompilerServices.CallerMemberName] string memberName = "",
+        [System.Runtime.CompilerServices.CallerFilePath] string sourceFilePath = "",
+        [System.Runtime.CompilerServices.CallerLineNumber] int sourceLineNumber = 0, params object[] args)
         {
+            string location = "Member Name : " + memberName + "\n" + "Path : " + sourceFilePath + "\n" + "Line Number: " + sourceLineNumber;
+
             if (_traceId == null || _traceId == Guid.Empty.ToString())
             {
                 _traceId = Convert.ToString(_httpContextAccessor.HttpContext.Items["X-Trace-Id"]);
@@ -25,43 +36,74 @@ namespace Techievibe.Hub.Logging.Core
             var logMessage = new StringBuilder();
             //logMessage.AppendLine(message);
 
-            if (isFormatted)
-            {
-                logMessage.AppendLine("******************************");
-                logMessage.AppendLine(message);
-                logMessage.AppendLine();
-                logMessage.AppendLine();
-                logMessage.AppendLine("Exception Details : ");
-                logMessage.AppendLine("Exception Message : " + exception.Message);
-                logMessage.AppendLine("Exception Stacktrace : " + exception.StackTrace);
-                logMessage.AppendLine("Exception Source : " + exception.Source);
-                logMessage.AppendLine("******************************");
+            
+            logMessage.AppendLine("******************************");
+            logMessage.AppendLine("Error Message: " + message + "\n");
+            logMessage.AppendLine("Exception Message : " + exception.Message);
+            logMessage.AppendLine("Exception Stacktrace : " + exception.StackTrace);
+            logMessage.AppendLine("Exception Source : " + exception.Source);
+            logMessage.AppendLine("******************************");
 
-                _logger.LogError("X-Trace-Id: " + _traceId + " " + logMessage.ToString(), args);
+            _logger.LogError("\nX-Trace-Id: " + _traceId + "\n\n" + logMessage.ToString() + "\n\n At: \n" + location, args);
 
-                return;
-            }
-
-            _logger.LogError("X-Trace-Id: " + _traceId + " " + message);
         }
 
-        public void LogInfo(string message, bool isFormatted, params object[] args)
+        /// <summary>
+        /// Logs an info message to SumoLogic
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="location">this.GetType().Name + MethodBase.GetCurrentMethod().Name</param>
+        /// <param name="args"></param>
+        public void LogInfo(string message,[System.Runtime.CompilerServices.CallerMemberName] string memberName = "",
+        [System.Runtime.CompilerServices.CallerFilePath] string sourceFilePath = "",
+        [System.Runtime.CompilerServices.CallerLineNumber] int sourceLineNumber = 0, params object[] args)
         {
+            string location = "Member Name : " + memberName + "\n" + "Path : " + sourceFilePath + "\n" + "Line Number: " + sourceLineNumber;
+
+            if (_traceId == null || _traceId == Guid.Empty.ToString())
+            {
+                _traceId = Convert.ToString(_httpContextAccessor.HttpContext.Items["X-Trace-Id"]);
+            }
+
             var logMessage = new StringBuilder();
             //logMessage.AppendLine(message);
 
-            if (isFormatted)
+            
+            logMessage.AppendLine("-------------------------------");
+            logMessage.AppendLine(message);
+            logMessage.AppendLine("-------------------------------");
+
+            _logger.LogInformation("\nX-Trace-Id: " + _traceId + "\n\n" + logMessage.ToString() + "\n\n At: \n" + location, args);
+            
+        }
+
+        /// <summary>
+        /// Logs a warning message to SumoLogic
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="location">this.GetType().Name + MethodBase.GetCurrentMethod().Name</param>
+        /// <param name="args"></param>
+        public void LogWarn(string message, [System.Runtime.CompilerServices.CallerMemberName] string memberName = "",
+        [System.Runtime.CompilerServices.CallerFilePath] string sourceFilePath = "",
+        [System.Runtime.CompilerServices.CallerLineNumber] int sourceLineNumber = 0, params object[] args)
+        {
+            string location = "Member Name : " + memberName + "\n" + "Path : " + sourceFilePath + "\n" + "Line Number: " + sourceLineNumber;
+
+            if (_traceId == null || _traceId == Guid.Empty.ToString())
             {
-                logMessage.AppendLine("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                logMessage.AppendLine(message);
-                logMessage.AppendLine("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-
-                _logger.LogInformation("X-Trace-Id: " + _traceId + " " + logMessage.ToString(), args);
-
-                return;
+                _traceId = Convert.ToString(_httpContextAccessor.HttpContext.Items["X-Trace-Id"]);
             }
 
-            _logger.LogInformation("X-Trace-Id: " + _traceId + " " + message);
+            var logMessage = new StringBuilder();
+            //logMessage.AppendLine(message);
+
+
+            logMessage.AppendLine("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            logMessage.AppendLine(message);
+            logMessage.AppendLine("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
+            _logger.LogWarning("\nX-Trace-Id: " + _traceId + "\n\n" + logMessage.ToString() + "\n\n At: \n" + location, args);
+
         }
 
 

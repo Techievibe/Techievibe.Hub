@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Net.Mime;
+using System.Reflection;
 using Techievibe.Hub.Logging.Core;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -44,22 +45,16 @@ namespace Techievibe.Hub.API.Controllers.Admin
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            //_logger.LogInformation(_logHelper.GetFormattedInformationMessage("Health End Point data logged."));
-            //_logger.LogDebug(_logHelper.GetFormattedDebugMessage("Health End Point data logged."));
-            //_logger.LogError(_logHelper.GetFormattedErrorMessage("Health End Point data logged."));
-            //_logger.LogWarning(_logHelper.GetFormattedWarningMessage("Health End Point data logged."));
-
-            _logger.LogInfo("Sample1", false);
-            _logger.LogInfo("Sample2", true);
+            _logger.LogInfo("Sample1");
 
             try
             {
+                _logger.LogWarn("Argument Exception about to occur.");
                 throw new ArgumentNullException();
             }
             catch (Exception ex)
             {
-                _logger.LogError("Some formatted error occurred", ex, true);
-                _logger.LogError("Some not formatted error occurred", ex, false);
+                _logger.LogError("Some Error occurred", ex);
             }
 
             return Countries;

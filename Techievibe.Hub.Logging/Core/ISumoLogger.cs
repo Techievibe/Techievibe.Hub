@@ -9,8 +9,16 @@ namespace Techievibe.Hub.Logging.Core
 {
     public interface ISumoLogger
     {
-        void LogInfo(string message, bool isFormatted, params object[] args);
+        void LogInfo(string message, [System.Runtime.CompilerServices.CallerMemberName] string memberName = "",
+        [System.Runtime.CompilerServices.CallerFilePath] string sourceFilePath = "",
+        [System.Runtime.CompilerServices.CallerLineNumber] int sourceLineNumber = 0, params object[] args);
 
-        void LogError(string message, Exception exception, bool isFormatted, params object[] args);
+        void LogWarn(string message, [System.Runtime.CompilerServices.CallerMemberName] string memberName = "",
+        [System.Runtime.CompilerServices.CallerFilePath] string sourceFilePath = "",
+        [System.Runtime.CompilerServices.CallerLineNumber] int sourceLineNumber = 0, params object[] args);
+
+        void LogError(string message, Exception exception, [System.Runtime.CompilerServices.CallerMemberName] string memberName = "",
+        [System.Runtime.CompilerServices.CallerFilePath] string sourceFilePath = "",
+        [System.Runtime.CompilerServices.CallerLineNumber] int sourceLineNumber = 0, params object[] args);
     }
 }

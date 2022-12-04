@@ -16,4 +16,8 @@
     <ProjectReference Include="..\Techievibe.Hub.Logging\Techievibe.Hub.Logging.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ResponseExamples\" />
+  </ItemGroup>
+
 </Project>
