@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Polly;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Net.Mime;
 using System.Reflection;
+using System.Text;
 using Techievibe.Hub.Logging.Core;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -41,7 +44,7 @@ namespace Techievibe.Hub.API.Controllers.Admin
         /// Gets a list of all countries
         /// </summary>
         /// <returns>Returns a list of all countries.</returns>
-        
+
         [HttpGet]
         public IEnumerable<string> Get()
         {
@@ -60,60 +63,106 @@ namespace Techievibe.Hub.API.Controllers.Admin
             return Countries;
         }
 
-        /// <summary>
-        /// Gets a country by Id.
-        /// </summary>
-        /// <returns>Returns a single country that matches the given Id.</returns>
-        
-        [HttpGet("{id}")]
-        public string Get(int id)
+        ///// <summary>
+        ///// Inbound Email Posted
+        ///// </summary>
+
+        [HttpPost("inbound")]
+        public async Task<IActionResult> PostInbound([FromBody] string requestBody)
         {
-            return Countries[id];
+            _logger.LogInfo("Sample1 Inbound");
+
+            try
+            {
+                
+                using (StreamReader reader = new StreamReader(Request.Body, Encoding.UTF8))
+                {
+                    string rawValue = await reader.ReadToEndAsync();
+
+                    _logger.LogInfo("Header Start\n");
+                    foreach (var header in Request.Headers) 
+                    {
+                        _logger.LogInfo($"Key : {header.Key}, Value : {header.Value}");
+                    }
+
+                    _logger.LogInfo("Header End\n");
+
+                    _logger.LogInfo("Body Start\n");
+                    _logger.LogInfo($"{rawValue}");
+                    _logger.LogInfo("\nBody End");
+                }
+                if (Request.HasFormContentType && Request.Form.Files.Any())
+                {
+                    _logger.LogInfo("The request info is  : HasformContentType" + Request.HasFormContentType.ToString() + ", Files available is : " + Request.Form.Files.Any());
+                }
+                else
+                {
+                    _logger.LogInfo("The request info is  : HasformContentType" + Request.HasFormContentType.ToString() + ", Files available is : " + Request.Form.Files.Any());
+                }
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Some Error occurred", ex);
+            }
+
+            return Ok("Success");
         }
 
-        /// <summary>
-        /// Gets a country by Code.
-        /// </summary>
-        /// <returns>Returns a single country that matches the given country code.</returns>
+        ///// <summary>
+        ///// Gets a country by Id.
+        ///// </summary>
+        ///// <returns>Returns a single country that matches the given Id.</returns>
 
-        [HttpGet("{countryCode}")]
-        public string Get(string code)
-        {
-            return Countries[0];
-        }
+        //[HttpGet("{id}")]
+        //public string Get(int id)
+        //{
+        //    return Countries[id];
+        //}
 
-        /// <summary>
-        /// Adds a new country.
-        /// </summary>
-        /// <returns>Returns true, if country was added successfully.</returns>
-        
-        [HttpPost]
-        public bool Add([FromBody] string value)
-        {
-            return true;
-        }
+        ///// <summary>
+        ///// Gets a country by Code.
+        ///// </summary>
+        ///// <returns>Returns a single country that matches the given country code.</returns>
 
-        /// <summary>
-        /// Updates a country.
-        /// </summary>
-        /// <returns>Returns true, if country was updated successfully.</returns>
+        //[HttpGet("{countryCode}")]
+        //public string Get(string code)
+        //{
+        //    return Countries[0];
+        //}
 
-        [HttpPut("{id}")]
-        public bool Put(int id, [FromBody] string value)
-        {
-            return true;
-        }
+        ///// <summary>
+        ///// Adds a new country.
+        ///// </summary>
+        ///// <returns>Returns true, if country was added successfully.</returns>
+
+        //[HttpPost]
+        //public bool Add([FromBody] string value)
+        //{
+        //    return true;
+        //}
+
+        ///// <summary>
+        ///// Updates a country.
+        ///// </summary>
+        ///// <returns>Returns true, if country was updated successfully.</returns>
+
+        //[HttpPut("{id}")]
+        //public bool Put(int id, [FromBody] string value)
+        //{
+        //    return true;
+        //}
 
 
-        /// <summary>
-        /// Deletes a country.
-        /// </summary>
-        /// <returns>Returns true, if country was deleted successfully.</returns>
-        
-        [HttpDelete("{id}")]
-        public bool Delete(int id)
-        {
-            return true;
-        }
+        ///// <summary>
+        ///// Deletes a country.
+        ///// </summary>
+        ///// <returns>Returns true, if country was deleted successfully.</returns>
+
+        //[HttpDelete("{id}")]
+        //public bool Delete(int id)
+        //{
+        //    return true;
+        //}
     }
 }
