@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Models;
 using SumoLogic.Logging.AspNetCore;
 using Swashbuckle.AspNetCore.Filters;
+using System.Net;
 using System.Reflection;
+using Techievibe.Hub.API.Authentication;
 using Techievibe.Hub.API.Middlewares;
 using Techievibe.Hub.Common.Exceptions;
 using Techievibe.Hub.DataAccess.Dapper.ServiceRegistration;
@@ -51,7 +54,7 @@ namespace Techievibe.Hub.API
                 c.ExampleFilters();
                 //To be able to use SwashBuckle Annotations
                 c.EnableAnnotations();
-                //c.SwaggerDoc("V1", new OpenApiInfo { Title = "Techievibe.Hub.API", Version = "V1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Techievibe.Hub.API", Version = "1.0.0" });
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath, includeControllerXmlComments: true);
@@ -85,12 +88,11 @@ namespace Techievibe.Hub.API
             LoggerRegistration.AddSumoLogicLoggerForWeb(services, this.Configuration);
             DataAccessRegistration.AddSqlServerDependenciesForWeb(services, this.Configuration);
             services.AddSingleton<IUserManager, UserManager>();
+            services.AddSingleton<ICommonManager, CommonManager>();
             services.AddAutoMapper(cfg =>
             {
                 cfg.AddProfile(typeof(UserMapper));
             });
-
-
         }
 
         /// <summary>
@@ -127,17 +129,16 @@ namespace Techievibe.Hub.API
 
             app.UseRouting();
 
-            app.UseAuthorization();
-
             // Configure the HTTP request pipeline.
             app.UseSwagger(c =>
             {
                 c.RouteTemplate = "api/swagger/{documentName}/swagger.json";
             });
+
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/api/swagger/v1/swagger.json", "Techievibe.Hub.API");
-                c.RoutePrefix = "api/v1/swagger";
+                c.RoutePrefix = "api/swagger";
             });
 
             app.UseEndpoints(endpoints =>
