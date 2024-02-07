@@ -1,15 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using Techievibe.Hub.Common.ApiModels;
-using Techievibe.Hub.Logging.Core;
+using Techievibe.Hub.Common.Exceptions;
+using Techievibe.Hub.Infrastructure.Logging;
 
-namespace Techievibe.Hub.Common.Exceptions
+namespace Techievibe.Hub.Infrastructure.Middlewares
 {
     public class ExceptionHandlingMiddleware
     {
@@ -38,21 +33,21 @@ namespace Techievibe.Hub.Common.Exceptions
         {
             context.Response.ContentType = "application/json";
             ApiResponse<string> response = null;
-            List<string> Errors = new List<string>();
+            List<string> Errors = new();
 
             if (exception.InnerException != null)
             {
                 Errors.Add(exception.InnerException.Message);
                 //Errors.AddRange(exception.InnerException.Errors);
             }
-                
+
             else
                 Errors.Add(exception.Message);
 
-            if (exception is TechievibeException)
+            if (exception is TechievibeServerException)
             {
-                var ex = exception as TechievibeException;
-                
+                var ex = exception as TechievibeServerException;
+
                 if (ex.Message.ToLower().Contains("bad request"))
                 {
                     response = new ApiResponse<string>(null, 400, Errors);
@@ -71,8 +66,7 @@ namespace Techievibe.Hub.Common.Exceptions
                 response = new ApiResponse<string>(null, 500, Errors);
                 _logger.LogError(exception.Message, exception);
             }
-            if (response == null)
-                response = new ApiResponse<string>(null, 500, Errors);
+            response ??= new ApiResponse<string>(null, 500, Errors);
             var result = JsonConvert.SerializeObject(response);
             await context.Response.WriteAsync(result);
 

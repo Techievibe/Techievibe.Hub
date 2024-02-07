@@ -19,3 +19,5 @@ Techievibe.Hub.API/Properties/PublishProfiles/FolderProfile.pubxml.user
 Techievibe.Hub.API/Properties/PublishProfiles/FolderProfile1.pubxml
 Techievibe.Hub.API/Properties/PublishProfiles/FolderProfile1.pubxml.user
 Techievibe.Hub.API/Properties/PublishProfiles/FTPProfile.pubxml.user
+/Techievibe.Hub.UserManagement.API/bin
+/Techievibe.Hub.UserManagement.API/obj

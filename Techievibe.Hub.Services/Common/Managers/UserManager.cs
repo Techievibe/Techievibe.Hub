@@ -1,12 +1,11 @@
-﻿using Api = Techievibe.Hub.Common.ApiModels;
-using Techievibe.Hub.DataAccess.Core.Providers;
-using Techievibe.Hub.DataAccess.Dapper.Interfaces;
+﻿using ApiUser = Techievibe.Hub.Common.ApiModels.User;
+using Techievibe.Hub.Infrastructure.Datastore.Providers;
+using Techievibe.Hub.Infrastructure.Datastore.Interfaces;
 using Techievibe.Hub.Services.Common.Interfaces;
 using AutoMapper;
-using Techievibe.Hub.Common.ApiModels;
 using Techievibe.Hub.Common.Exceptions;
 using Microsoft.AspNetCore.Http;
-using Techievibe.Hub.Logging.Core;
+using Techievibe.Hub.Infrastructure.Logging;
 
 namespace Techievibe.Hub.Services.Common.Managers
 {
@@ -14,37 +13,33 @@ namespace Techievibe.Hub.Services.Common.Managers
     {
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
-        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ISumoLogger _logger;
-        public UserManager(IUserRepository userRepository, IMapper mapper , IHttpContextAccessor httpContextAccessor, ISumoLogger logger)
+        public UserManager(IUserRepository userRepository, IMapper mapper, ISumoLogger logger)
         {
             _userRepository = userRepository;
             _mapper = mapper;
-            _httpContextAccessor = httpContextAccessor;
             _logger = logger;
         }
 
-        public async Task<List<Api.User>> GetAllUsers()
+        public async Task<List<ApiUser>> GetAllUsers()
         {
             var dataUsers = await _userRepository.GetAllAsync();
 
-            List<Api.User> apiUsers = new List<Api.User>();
+            List<ApiUser> apiUsers = new();
 
             foreach (var dbUser in dataUsers)
             {
-                apiUsers.Add(_mapper.Map<Api.User>(dbUser));
+                apiUsers.Add(_mapper.Map<ApiUser>(dbUser));
             }
 
             return apiUsers;
         }
 
-        public async Task<User> GetUserById(int id)
+        public async Task<ApiUser> GetUserById(int id)
         {
             var dataUser = await _userRepository.GetByIdAsync(id);
-
-            Api.User apiUser = new Api.User();
-
-            //apiUser = _mapper.Map<Api.User>(dataUser);
+                        
+            ApiUser apiUser = _mapper.Map<ApiUser>(dataUser);
 
             return apiUser;
         }
