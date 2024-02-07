@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Techievibe.Hub.AuthManagement.API</name>
+    </assembly>
+    <members>
+        <member name="T:Techievibe.Hub.Auth.API.Controllers.HealthCheck.HealthCheckController">
+            <summary>
+            Health check controller
+            </summary>
+        </member>
+        <member name="M:Techievibe.Hub.Auth.API.Controllers.HealthCheck.HealthCheckController.#ctor(Techievibe.Hub.Services.Common.Interfaces.ICommonManager,Microsoft.Extensions.Logging.ILogger{Techievibe.Hub.Auth.API.Controllers.HealthCheck.HealthCheckController})">
+            <summary>
+            A constructor for Health check
+            </summary>
+        </member>
+        <member name="M:Techievibe.Hub.Auth.API.Controllers.HealthCheck.HealthCheckController.GetAvailability">
+            <summary>
+            Checks readiness of the service
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Techievibe.Hub.Auth.API.Controllers.HealthCheck.HealthCheckController.GetLiveness">
+            <summary>
+            Checks readiness of the service, and all dependent services
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Techievibe.Hub.Auth.API.Startup">
+            <summary>
+            Runs during startup of the application, responsible for injecting dependent middleware services and essential services to run the application.
+            </summary>
+        </member>
+        <member name="P:Techievibe.Hub.Auth.API.Startup.Configuration">
+            <summary>
+            This objects allows you to read environment variables and settings during runtime.
+            </summary>
+        </member>
+        <member name="M:Techievibe.Hub.Auth.API.Startup.#ctor(Microsoft.AspNetCore.Hosting.IWebHostEnvironment,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            A constructor for StartUp that instantiates Configuration object.
+            </summary>
+            <param name="env"></param>
+            <param name="configuration"></param>
+        </member>
+        <member name="M:Techievibe.Hub.Auth.API.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Configures middleware services
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:Techievibe.Hub.Auth.API.Startup.ConfigureContainer(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            configures middleware services for containerized applications
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:Techievibe.Hub.Auth.API.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment,Microsoft.Extensions.Logging.ILoggerFactory)">
+            <summary>
+            configures the usage of injected middleware services.
+            </summary>
+            <param name="app"></param>
+            <param name="env"></param>
+            <param name="loggerFactory"></param>
+        </member>
+    </members>
+</doc>

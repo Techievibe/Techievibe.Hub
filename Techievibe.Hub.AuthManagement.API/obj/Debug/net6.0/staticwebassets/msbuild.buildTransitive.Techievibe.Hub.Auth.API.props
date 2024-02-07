@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\Techievibe.Hub.Auth.API.props" />
+</Project>
