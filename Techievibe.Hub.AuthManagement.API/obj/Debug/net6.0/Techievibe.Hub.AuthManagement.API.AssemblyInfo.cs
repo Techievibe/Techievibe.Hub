@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Techievibe.Hub.AuthManagement.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+62d170953ec469ad5b4b94988537733092a88760")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
 [assembly: System.Reflection.AssemblyProductAttribute("Techievibe.Hub.AuthManagement.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Techievibe.Hub.AuthManagement.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

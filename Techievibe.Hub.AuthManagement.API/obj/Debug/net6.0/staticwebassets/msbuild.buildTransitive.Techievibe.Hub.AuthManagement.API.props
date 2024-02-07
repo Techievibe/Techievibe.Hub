@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\buildMultiTargeting\Techievibe.Hub.AuthManagement.API.props" />
-</Project>
