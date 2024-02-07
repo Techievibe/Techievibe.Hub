@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -6,16 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Sports\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Techievibe.Hub.DataAccess.Core\Techievibe.Hub.DataAccess.Core.csproj" />
-    <ProjectReference Include="..\Techievibe.Hub.DataAccess.Dapper\Techievibe.Hub.DataAccess.Dapper.csproj" />
+    <ProjectReference Include="..\Techievibe.Hub.Infrastructure\Techievibe.Hub.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

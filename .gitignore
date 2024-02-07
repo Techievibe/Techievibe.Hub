@@ -1,17 +1,6 @@
 .vs/
-Techievibe.Hub.API/bin/
-Techievibe.Hub.API/obj/
 Techievibe.Hub.Common/bin/
 Techievibe.Hub.Common/obj/
-Techievibe.Hub.Data/obj/
-Techievibe.Hub.DataAccess.Core/bin/
-Techievibe.Hub.DataAccess.Core/obj/
-Techievibe.Hub.DataAccess.Dapper/bin/
-Techievibe.Hub.DataAccess.Dapper/obj/
-Techievibe.Hub.Integrations.StockMarket.Alpaca/bin/
-Techievibe.Hub.Integrations.StockMarket.Alpaca/obj/
-Techievibe.Hub.Logging/bin/
-Techievibe.Hub.Logging/obj/
 Techievibe.Hub.Services/bin/
 Techievibe.Hub.Services/obj/
 Techievibe.Hub.API/Properties/PublishProfiles/FolderProfile.pubxml
@@ -19,3 +8,7 @@ Techievibe.Hub.API/Properties/PublishProfiles/FolderProfile.pubxml.user
 Techievibe.Hub.API/Properties/PublishProfiles/FolderProfile1.pubxml
 Techievibe.Hub.API/Properties/PublishProfiles/FolderProfile1.pubxml.user
 Techievibe.Hub.API/Properties/PublishProfiles/FTPProfile.pubxml.user
+/Techievibe.Hub.UserManagement.API/bin
+/Techievibe.Hub.UserManagement.API/obj
+/Techievibe.Hub.AuthManagement.API/bin
+/Techievibe.Hub.AuthManagement.API/obj
